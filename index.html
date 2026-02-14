@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swaying Rose</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background: radial-gradient(circle at top, #fff8fb 0%, #ffd7ea 45%, #ffc2df 100%);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .rose-wrap {
+        text-align: center;
+        z-index: 2;
+      }
+
+      .rose {
+        width: min(58vmin, 360px);
+        filter: drop-shadow(0 10px 16px rgba(126, 10, 56, 0.3));
+        transform-origin: 50% 92%;
+        animation: sway 3s ease-in-out infinite;
+      }
+
+      @keyframes sway {
+        0% {
+          transform: rotate(-6deg);
+        }
+        50% {
+          transform: rotate(6deg);
+        }
+        100% {
+          transform: rotate(-6deg);
+        }
+      }
+
+      h1 {
+        margin: 1rem 0 0;
+        color: #8f0f47;
+        font-size: clamp(1.2rem, 2.6vw, 1.9rem);
+        letter-spacing: 0.03em;
+        text-shadow: 0 2px 6px rgba(255, 255, 255, 0.45);
+      }
+
+      #petal-layer,
+      #heart-layer {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      #petal-layer {
+        z-index: 3;
+      }
+
+      #heart-layer {
+        z-index: 4;
+      }
+
+      .petal {
+        position: fixed;
+        top: -40px;
+        width: 22px;
+        height: 28px;
+        pointer-events: auto;
+        cursor: pointer;
+        background: radial-gradient(circle at 30% 30%, #ffd7e9 0%, #ff7fb2 55%, #f14a8d 100%);
+        border-radius: 70% 30% 65% 35% / 55% 45% 55% 45%;
+        box-shadow: 0 2px 7px rgba(166, 33, 91, 0.25);
+        animation-name: fall;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateX(var(--drift, 0px)) translateY(-50px) rotate(0deg);
+          opacity: 0.95;
+        }
+        100% {
+          transform: translateX(calc(var(--drift, 0px) * -1)) translateY(115vh) rotate(360deg);
+          opacity: 0.75;
+        }
+      }
+
+      .heart {
+        position: fixed;
+        font-size: 18px;
+        animation: burst 900ms ease-out forwards;
+      }
+
+      @keyframes burst {
+        0% {
+          transform: translate(0, 0) scale(0.6);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--tx), var(--ty)) scale(1.4);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="petal-layer" aria-hidden="true"></div>
+    <div id="heart-layer" aria-hidden="true"></div>
+
+    <main class="rose-wrap" aria-label="Swaying rose illustration">
+      <svg class="rose" viewBox="0 0 220 290" role="img" aria-labelledby="title desc">
+        <title id="title">Pink Rose</title>
+        <desc id="desc">A stylized pink rose swaying left and right.</desc>
+
+        <ellipse cx="110" cy="90" rx="34" ry="30" fill="#ff8fbc" />
+        <ellipse cx="92" cy="92" rx="24" ry="22" fill="#ff6cab" />
+        <ellipse cx="128" cy="92" rx="24" ry="22" fill="#ff6cab" />
+        <ellipse cx="110" cy="73" rx="21" ry="16" fill="#ffb1d0" />
+        <path d="M95 92 C98 74, 122 74, 125 92 C118 86, 102 86, 95 92 Z" fill="#f4478d" />
+        <path d="M86 106 C95 125, 125 125, 134 106 C122 112, 98 112, 86 106 Z" fill="#ff78b2" />
+
+        <path d="M110 120 C118 170, 118 214, 110 270" stroke="#2f9044" stroke-width="8" stroke-linecap="round" fill="none" />
+        <path d="M110 182 C86 170, 70 172, 58 193 C80 202, 96 198, 110 182 Z" fill="#4fbc62" />
+        <path d="M110 212 C134 200, 150 202, 163 224 C142 232, 126 228, 110 212 Z" fill="#4fbc62" />
+      </svg>
+      <h1>HAPPY VELENTINIE DAY LITTLE BU!</h1>
+    </main>
+
+    <script>
+      const petalLayer = document.getElementById('petal-layer');
+      const heartLayer = document.getElementById('heart-layer');
+
+      function random(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function createHearts(x, y) {
+        const count = 10;
+        for (let i = 0; i < count; i += 1) {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.textContent = '💖';
+          heart.style.left = `${x}px`;
+          heart.style.top = `${y}px`;
+          heart.style.setProperty('--tx', `${random(-70, 70)}px`);
+          heart.style.setProperty('--ty', `${random(-85, 35)}px`);
+          heartLayer.appendChild(heart);
+          heart.addEventListener('animationend', () => heart.remove());
+        }
+      }
+
+      function spawnPetal() {
+        const petal = document.createElement('button');
+        petal.type = 'button';
+        petal.className = 'petal';
+        petal.setAttribute('aria-label', 'Falling rose petal');
+
+        const x = random(0, window.innerWidth - 30);
+        const duration = random(4.8, 8.2);
+        const drift = random(-50, 50);
+
+        petal.style.left = `${x}px`;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.setProperty('--drift', `${drift}px`);
+
+        petal.addEventListener('click', (event) => {
+          const rect = petal.getBoundingClientRect();
+          createHearts(rect.left + rect.width / 2, rect.top + rect.height / 2);
+          petal.remove();
+          event.stopPropagation();
+        });
+
+        petal.addEventListener('animationend', () => petal.remove());
+        petalLayer.appendChild(petal);
+      }
+
+      setInterval(spawnPetal, 360);
+      for (let i = 0; i < 14; i += 1) {
+        setTimeout(spawnPetal, i * 130);
+      }
+    </script>
+  </body>
+</html>
