@@ -25,6 +25,20 @@
       .flower {
         width: min(60vmin, 360px);
         filter: drop-shadow(0 8px 14px rgba(160, 28, 96, 0.28));
+        transform-origin: 50% 92%;
+        animation: sway 3.2s ease-in-out infinite;
+      }
+
+      @keyframes sway {
+        0% {
+          transform: rotate(-7deg);
+        }
+        50% {
+          transform: rotate(7deg);
+        }
+        100% {
+          transform: rotate(-7deg);
+        }
       }
 
       h1 {
@@ -55,7 +69,7 @@
         <path d="M110 182 C89 172, 72 175, 60 194 C80 200, 95 197, 110 182 Z" fill="#5bc96a" />
         <path d="M110 204 C131 194, 148 197, 160 216 C140 222, 125 219, 110 204 Z" fill="#5bc96a" />
       </svg>
-      <h1>Welcome to a Pink Flower 🌸</h1>
+      <h1>HAPPY VELENTINIE DAY LITTLE BU!</h1>
     </main>
   </body>
 </html>
