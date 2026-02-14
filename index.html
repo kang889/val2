@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pink Flower</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at top, #fff7fb 0%, #ffe4f1 45%, #ffd0e6 100%);
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .flower-wrap {
+        text-align: center;
+      }
+
+      .flower {
+        width: min(60vmin, 360px);
+        filter: drop-shadow(0 8px 14px rgba(160, 28, 96, 0.28));
+      }
+
+      h1 {
+        margin: 1rem 0 0;
+        color: #9a1e64;
+        font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+        letter-spacing: 0.03em;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="flower-wrap" aria-label="Pink flower illustration">
+      <svg class="flower" viewBox="0 0 220 260" role="img" aria-labelledby="title desc">
+        <title id="title">Pink flower</title>
+        <desc id="desc">A stylized pink flower with six petals and a yellow center.</desc>
+
+        <ellipse cx="110" cy="74" rx="30" ry="44" fill="#ff85c4" />
+        <ellipse cx="110" cy="146" rx="30" ry="44" fill="#ff85c4" />
+        <ellipse cx="73" cy="110" rx="30" ry="44" transform="rotate(-48 73 110)" fill="#ff70bb" />
+        <ellipse cx="147" cy="110" rx="30" ry="44" transform="rotate(48 147 110)" fill="#ff70bb" />
+        <ellipse cx="78" cy="82" rx="26" ry="38" transform="rotate(-18 78 82)" fill="#ff9bcf" />
+        <ellipse cx="142" cy="82" rx="26" ry="38" transform="rotate(18 142 82)" fill="#ff9bcf" />
+
+        <circle cx="110" cy="110" r="24" fill="#ffd34d" />
+        <circle cx="110" cy="110" r="8" fill="#f7a600" />
+
+        <path d="M110 136 C116 174, 116 194, 110 240" stroke="#3f9d51" stroke-width="8" stroke-linecap="round" fill="none" />
+        <path d="M110 182 C89 172, 72 175, 60 194 C80 200, 95 197, 110 182 Z" fill="#5bc96a" />
+        <path d="M110 204 C131 194, 148 197, 160 216 C140 222, 125 219, 110 204 Z" fill="#5bc96a" />
+      </svg>
+      <h1>Welcome to a Pink Flower 🌸</h1>
+    </main>
+  </body>
+</html>
